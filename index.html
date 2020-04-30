@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Transition Studio</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/design.css">
+</head>
+
+<body id="fix">
+    <div class="fixedTop" >
+        <div class="logo">TRANSITIONS</div> 
+        <div class="nav">
+            <ul>
+                <li><a href="#cont">-1</a></li>
+                <li><a href="#cont2">Sous-sol</a></li>
+                <li><a class="focus" href="#fix">A LA SURFACE</a></li>
+            </ul>
+        </div>
+    </div>
+        <!-- ELEMENTS DE TRANSITION -->
+    <header>
+        <div class="absolute">
+            <div class="bg rellax" data-rellax-speed="-16"></div>
+        </div>
+        <div class="absolute">
+            <img class="rellax" data-rellax-speed="-13" src="img/backmnt.png">
+        </div>
+        <div class="absolute">
+        <img class="rellax" data-rellax-speed="-8" src="img/midmnt.png">
+        </div>
+        <div class="absolute">
+        <img class="rellax" data-rellax-speed="-4" src="img/frntmnt.png">
+        </div>
+        <div class="coverText">
+            <h2 class="rellax" data-rellax-speed="-6">TRANSITION<br />STUDIO</h2>
+            <p class="rellax" data-rellax-speed="-5">Bienvenue dans une journée de découverte. Création d'expérience digitale.</p>
+        </div>
+        <div class="absolute">
+            <img src="img/frnt.png">
+        </div>
+    </header>
+    <!-- FIN ELEMENTS DE TRANSITION -->
+    
+    <div id="cont" class="content">
+        <div class="grid">
+            <div><img src="img/cave.svg"></div>
+            <div>
+                <h2 class="rellax" data-rellax-speed="-1">Le voyage commence ici</h2>
+                <p class="rellax" data-rellax-speed="-2">Voici la grotte de la 5eme compagnie, il parait qu'ici se cachent des créatures inconnues...</p>
+            </div>
+        </div>
+    </div>
+    <div id="cont2" class="content">
+        <div class="grid">
+            <div><img src="img/cave3.svg"></div>
+            <div>
+                <h2 class="rellax" data-rellax-speed="-1">Vous voici dans le centre de la Terre</h2>
+                <p class="rellax" data-rellax-speed="-2">L'air se fait rare...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script type="text/javascript" src="rellax.min.js">
+    </script>
+    <script>
+        document.addEventListener('mouseover', function(e) {
+            if (e.target.tagName !== 'A') return;
+            if ((e.target.href && e.target.href.indexOf('#') != -1) && ((e.target.pathname == location.pathname) || ('/' + e.target.pathname == location.pathname)) && (e.target.search == location.search)) {
+                scrollAnchors(e, e.target);
+            }
+        });
+
+        function scrollAnchors(e, respond = null) {
+
+            function distanceToTop(el) {
+                return Math.floor(el.getBoundingClientRect().top);
+            }
+
+            e.preventDefault();
+            var targetID = (respond) ? respond.getAttribute('href') : this.getAttribute('href');
+            var targetAnchor = document.querySelector(targetID);
+            if (!targetAnchor) return;
+            var originalTop = distanceToTop(targetAnchor);
+            window.scrollBy({
+                top: originalTop,
+                left: 0,
+                behavior: 'smooth'
+            });
+            var checkIfDone = setInterval(function() {
+                var atBottom = window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 2;
+                if (distanceToTop(targetAnchor) === 0 || atBottom) {
+                    targetAnchor.tabIndex = '-1';
+                    targetAnchor.focus();
+
+                    if ('history' in window) {
+                        window.history.pushState('', '', targetID);
+                    } else {
+                        window.location = targetID;
+                    }
+
+                    clearInterval(checkIfDone);
+                }
+            }, 500);
+        };
+        var rellax = new Rellax('.rellax', {
+            callback: function(position) {
+                console.log(position);
+            }
+        });
+
+
+    </script>
+    <!-- codé par Yassine Benosmane -->
+</body>
