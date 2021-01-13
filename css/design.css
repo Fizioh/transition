@@ -122,3 +122,20 @@ h2 {
         font-size: 1.6em;
     }
 }
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 640px) {
+    .nav {
+        margin-top: 15px;
+    }
+   .focus {
+       float: left;
+       font-size: .5em;
+            opacity: 22%;
+    }
+     .coverText {
+      z-index: 4000;
+      font-size: .8.5em;
+    }
+  }
